@@ -21,10 +21,10 @@ router.get("/", async (req, res, next) => {
       err.status = 404;
       return next(err);
     }
+    res.json(posts);
   } catch (err) {
     return next(err);
   }
-  res.json(posts);
 });
 
 router.get("/:postid", async (req, res, next) => {
@@ -43,11 +43,10 @@ router.get("/:postid", async (req, res, next) => {
       err.status = 404;
       return next(err);
     }
+    res.json({ post, comments });
   } catch (err) {
     return next(err);
   }
-
-  res.json({ post, comments });
 });
 
 router.post("/", [
@@ -71,19 +70,19 @@ router.post("/", [
 
       await Post.sync();
       const result = await Post.create(postData);
+      res.json({
+        message: "Post added successfully.",
+        post: {
+          title: result.title,
+          text: result.text,
+          published: result.published,
+          createdAt: result.createdAt,
+          id: result.id,
+        },
+      });
     } catch (err) {
       return next(err);
     }
-    res.json({
-      message: "Post added successfully.",
-      post: {
-        title: result.title,
-        text: result.text,
-        published: result.published,
-        createdAt: result.createdAt,
-        id: result.id,
-      },
-    });
   },
 ]);
 
