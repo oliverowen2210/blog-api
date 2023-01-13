@@ -73,4 +73,8 @@ router.post("/", [
   },
 ]);
 
+router.put("/:postid", async (req, res, next) => {
+  res.send("todo");
+});
+
 module.exports = router;
