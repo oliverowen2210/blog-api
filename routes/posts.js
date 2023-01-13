@@ -25,7 +25,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:postid", async (req, res, next) => {
   const [post, comments] = await Promise.all([
-    Post.findOne({ where: { id: parseInt(req.params.postid) } }),
+    Post.findOne({ where: { id: parseInt(req.params.postid), published: true } }),
     Comment.findAll({
       where: { postid: req.params.postid },
     }),
