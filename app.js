@@ -81,6 +81,16 @@ app.use(async (req, res, next) => {
   }
 });
 
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
+    if (!user) res.sendStatus(400);
+
+    const token = jwt.sign({ user }, process.env.JWT_SECRET);
+    return res.json(token);
+  });
+});
+
 app.use("/", postRouter);
 
 // catch 404 and forward to error handler
