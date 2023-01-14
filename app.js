@@ -8,7 +8,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-app.options("/login", cors());
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -28,6 +27,9 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 app.use(cors());
+
+app.options("/login", cors());
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
