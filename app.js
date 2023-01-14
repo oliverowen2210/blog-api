@@ -90,6 +90,8 @@ app.post("/login", (req, res, next) => {
     if (!user) res.sendStatus(400);
 
     const token = jwt.sign({ user }, process.env.JWT_SECRET);
+    console.log("created jwt");
+    console.log("token: " + token);
     return res.json(token);
   });
 });
