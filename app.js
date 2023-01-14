@@ -4,11 +4,21 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
+const jwt = require("jsonwebtoken");
+
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const passportJWT = require("passport-jwt");
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 
 const app = express();
 const db = require("./sequelize");
+
+const User = require("./models/user");
 
 const postRouter = require("./routes/posts");
 
