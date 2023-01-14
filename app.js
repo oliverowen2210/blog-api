@@ -26,7 +26,7 @@ const postRouter = require("./routes/posts");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 
 app.options("*", cors());
 
