@@ -90,11 +90,11 @@ app.use(async (req, res, next) => {
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
-    if (!user) res.sendStatus(400);
-
+    else if (!user) res.sendStatus(400);
+    else {
     const token = jwt.sign({ user }, process.env.JWT_SECRET);
-    console.log("created jwt");
-    console.log("token: " + token);
+      return res.json({ token: token });
+    }
     return res.json(token);
   });
 });
