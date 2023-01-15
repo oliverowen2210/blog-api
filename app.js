@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const session = require("express-session");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -32,6 +33,8 @@ app.use(cors({ credentials: true, origin: true }));
 app.options("*", cors());
 
 app.use(logger("dev"));
+app.use(session({ secret: process.env.JWT_SECRET }));
+app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
