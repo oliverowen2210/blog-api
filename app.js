@@ -76,6 +76,16 @@ passport.use(
   )
 );
 
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findOne({ where: { id } })
+    .then((user) => done(null, user))
+    .catch((err) => done(err, false));
+});
+
 app.use(async (req, res, next) => {
   try {
     await db.authenticate();
