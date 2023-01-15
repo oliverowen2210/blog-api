@@ -92,11 +92,11 @@ app.post("/login", (req, res, next) => {
     if (err) return next(err);
     else if (!user) res.sendStatus(400);
     else {
-    const token = jwt.sign({ user }, process.env.JWT_SECRET);
+      const token = jwt.sign({ user }, process.env.JWT_SECRET);
       return res.json({ token: token });
     }
   })(req, res, next);
-  });
+});
 
 app.get("/secret", passport.authenticate("jwt"), (req, res, next) => {
   res.send(req.user.email);
