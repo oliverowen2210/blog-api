@@ -58,4 +58,31 @@ router.post("/", [
     }
   },
 ]);
+
+router.get("/:postid", async (req, res, next) => {
+  try {
+    const [post, comments] = await Promise.all([
+      Post.findOne({
+        where: { id: parseInt(req.params.postid) },
+      }),
+      Comment.findAll({
+        where: { postid: req.params.postid },
+      }),
+    ]);
+
+    if (!post) {
+      const err = new Error("No post with that id was found.");
+      err.status = 404;
+      return next(err);
+    }
+    res.json({
+      post,
+      comments,
+    });
+  } catch (err) {
+    return next(err);
+  }
+});
+router.get("/");
+
 module.exports = router;
