@@ -107,7 +107,7 @@ app.post("/login", (req, res, next) => {
     else if (!user) res.sendStatus(400);
     else {
       const token = jwt.sign({ user }, process.env.JWT_SECRET);
-      return res.json({ token: token });
+      return res.json({ token: `Bearer ${token}` });
     }
   })(req, res, next);
 });
