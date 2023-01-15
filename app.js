@@ -95,7 +95,7 @@ app.post("/login", (req, res, next) => {
     const token = jwt.sign({ user }, process.env.JWT_SECRET);
       return res.json({ token: token });
     }
-    return res.json(token);
+  })(req, res, next);
   });
 });
 
