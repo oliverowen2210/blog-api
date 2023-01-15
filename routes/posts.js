@@ -43,48 +43,19 @@ router.get("/:postid", async (req, res, next) => {
       err.status = 404;
       return next(err);
     }
-    res.json({ post, comments });
+    res.json({
+      post: {
+        id: post.id,
+        title: post.title,
+        text: post.text,
+        createdAt: post.createdAt,
+      },
+      comments,
+    });
   } catch (err) {
     return next(err);
   }
 });
-
-router.post("/", [
-  body("title", "Post title is invalid.").trim().isLength({ min: 1, max: 100 }),
-  body("text", "Post text is invalid").trim().notEmpty(),
-  async (req, res, next) => {
-    try {
-      const errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        return next(errors);
-      }
-
-      let published = req.body.published ? true : false;
-
-      const postData = {
-        title: req.body.title,
-        text: req.body.text,
-        published,
-      };
-
-      await Post.sync();
-      const result = await Post.create(postData);
-      res.json({
-        message: "Post added successfully.",
-        post: {
-          title: result.title,
-          text: result.text,
-          published: result.published,
-          createdAt: result.createdAt,
-          id: result.id,
-        },
-      });
-    } catch (err) {
-      return next(err);
-    }
-  },
-]);
 
 router.put("/:postid", async (req, res, next) => {
   res.send("todo");
