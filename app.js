@@ -97,6 +97,9 @@ app.post("/login", (req, res, next) => {
     }
   })(req, res, next);
   });
+
+app.get("/secret", passport.authenticate("jwt"), (req, res, next) => {
+  res.send(req.user.email);
 });
 
 app.use("/", postRouter);
