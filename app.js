@@ -21,6 +21,7 @@ const db = require("./sequelize");
 const User = require("./models/user");
 
 const postRouter = require("./routes/posts");
+const privateRouter = require("./routes/private_posts");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -108,11 +109,7 @@ app.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-app.get("/secret", passport.authenticate("jwt"), (req, res, next) => {
-  res.send(req.user.email);
-});
-
-app.use("/", postRouter);
+app.use("/private/posts", passport.authenticate("jwt"), privateRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
