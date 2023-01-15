@@ -50,8 +50,10 @@ passport.use(
           message: "Incorrect username or password.",
         });
       //check if password matches stored hash
-      const [err, result] = await bcrypt.compare(password, user.password);
-      if (err) {
+      const passwordMatches = await bcrypt.compare(password, user.password);
+      if (!passwordMatches) {
+        let err = "Incorrect username or password.";
+        err.status = 400;
         return done(err, false, { message: "Incorrect username or password." });
       }
 
