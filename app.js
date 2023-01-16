@@ -24,10 +24,6 @@ const User = require("./models/user");
 const postRouter = require("./routes/posts");
 const privateRouter = require("./routes/private_posts");
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
-
 app.use(cors({ credentials: true, origin: true }));
 
 app.options("*", cors());
