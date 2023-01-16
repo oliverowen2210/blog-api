@@ -83,6 +83,14 @@ router.get("/:postid", async (req, res, next) => {
     return next(err);
   }
 });
-router.get("/");
+
+router.delete("/:postid", async (req, res, next) => {
+  try {
+    await Post.destroy({ where: { id: req.params.postid } });
+    res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+});
 
 module.exports = router;
