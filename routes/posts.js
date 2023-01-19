@@ -14,6 +14,9 @@ router.get("/", async (req, res, next) => {
       where: {
         published: true,
       },
+
+      order: [["createdAt", "DESC"]],
+      limit: 10,
     });
 
     if (!posts) {
@@ -35,6 +38,8 @@ router.get("/:postid", async (req, res, next) => {
       }),
       Comment.findAll({
         where: { postid: req.params.postid },
+
+        order: [["createdAt", "DESC"]],
       }),
     ]);
 
