@@ -9,7 +9,9 @@ const async = require("async");
 
 router.get("/", async (req, res, next) => {
   try {
-    const posts = await Post.findAll({});
+    const posts = await Post.findAll({
+      order: [["createdAt", "DESC"]],
+    });
 
     if (!posts) {
       err = new Error("No posts were found.");
