@@ -21,6 +21,7 @@ const db = require("./sequelize");
 
 const User = require("./models/user");
 
+const commentRouter = require("./routes/comments");
 const postRouter = require("./routes/posts");
 const privateRouter = require("./routes/private_posts");
 
@@ -29,7 +30,13 @@ app.use(cors({ credentials: true, origin: true }));
 app.options("*", cors());
 
 app.use(logger("dev"));
-app.use(session({ secret: process.env.JWT_SECRET }));
+app.use(
+  session({
+    secret: process.env.JWT_SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -110,6 +117,7 @@ app.post("/login", (req, res, next) => {
 
 app.use("/private/posts", passport.authenticate("jwt"), privateRouter);
 app.use("/posts", postRouter);
+app.use("/", commentRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
