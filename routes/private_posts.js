@@ -111,4 +111,20 @@ router.delete("/:postid", async (req, res, next) => {
   }
 });
 
+router.put("/:postid", async (req, res, next) => {
+  try {
+    let postData = {};
+
+    if (req.body.title !== undefined) postData.title = req.body.title;
+    if (req.body.text !== undefined) postData.text = req.body.text;
+    if (req.body.published !== undefined || req.body.published !== "")
+      postData.published = req.body.published;
+
+    await Post.update(postData, { where: { id: req.params.postid } });
+    return res.sendStatus(200);
+  } catch (err) {
+    return next(err);
+  }
+});
+
 module.exports = router;
