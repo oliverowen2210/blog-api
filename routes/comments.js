@@ -31,6 +31,11 @@ router.get("/posts/:postid/comments", async (req, res, next) => {
 
 router.post("/posts/:postid/comments", async (req, res, next) => {
   try {
+    if (!req.body.text) {
+      const err = new Error("Comments can't be empty.");
+      err.status = 400;
+      throw err;
+    }
     const username = req.body.username ? req.body.username : "Anonymous";
     await Comment.sync();
     const result = await Comment.create({
