@@ -18,7 +18,23 @@ router.get("/", async (req, res, next) => {
       err.status = 404;
       return next(err);
     }
-    res.json(posts);
+
+    /**Adds the comment count of each post to the post objects */
+    const getComments = (post) =>
+      new Promise((resolve, reject) => {
+        Comment.findAll({
+          where: { postid: post.id },
+
+          order: [["createdAt", "DESC"]],
+        }).then((comments) => {
+          post.dataValues.commentCount = comments.length;
+          resolve(post.dataValues.commentCount);
+        });
+      });
+
+    Promise.all(posts.map(getComments)).then(() => {
+      res.json(posts);
+    });
   } catch (err) {
     return next(err);
   }
