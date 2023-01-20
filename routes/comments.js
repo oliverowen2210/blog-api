@@ -13,6 +13,8 @@ router.get("/post/:postid", async (req, res, next) => {
       where: {
         postid: req.params.postid,
       },
+
+      order: [["createdAt", "DESC"]],
     });
 
     if (!comments) {
