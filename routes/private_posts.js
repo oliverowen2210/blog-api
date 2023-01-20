@@ -83,9 +83,6 @@ router.get("/:postid", async (req, res, next) => {
       Post.findOne({
         where: { id: parseInt(req.params.postid) },
       }),
-      Comment.findAll({
-        where: { postid: req.params.postid },
-      }),
     ]);
 
     if (!post) {
@@ -95,7 +92,6 @@ router.get("/:postid", async (req, res, next) => {
     }
     res.json({
       post,
-      comments,
     });
   } catch (err) {
     return next(err);

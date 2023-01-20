@@ -50,11 +50,6 @@ router.get("/:postid", async (req, res, next) => {
       Post.findOne({
         where: { id: parseInt(req.params.postid), published: true },
       }),
-      Comment.findAll({
-        where: { postid: req.params.postid },
-
-        order: [["createdAt", "DESC"]],
-      }),
     ]);
 
     if (!post) {
@@ -69,7 +64,6 @@ router.get("/:postid", async (req, res, next) => {
         text: post.text,
         createdAt: post.createdAt,
       },
-      comments,
     });
   } catch (err) {
     return next(err);
