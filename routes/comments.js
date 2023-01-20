@@ -7,7 +7,7 @@ const Comment = require("../models/comment");
 
 const async = require("async");
 
-router.get("/post/:postid", async (req, res, next) => {
+router.get("/posts/:postid", async (req, res, next) => {
   try {
     const comments = await Comment.findAll({
       where: {
@@ -41,7 +41,7 @@ router.post("/", async (req, res, next) => {
     const result = await Comment.create({
       username,
       text: req.body.text,
-      postid: req.params.postid,
+      postid: req.body.postid,
     });
     res.json({
       message: "Comment posted successfully.",
