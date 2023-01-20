@@ -7,7 +7,7 @@ const Comment = require("../models/comment");
 
 const async = require("async");
 
-router.get("/posts/:postid", async (req, res, next) => {
+router.get("/post/:postid", async (req, res, next) => {
   try {
     const comments = await Comment.findAll({
       where: {
