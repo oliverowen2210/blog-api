@@ -46,11 +46,9 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:postid", async (req, res, next) => {
   try {
-    const [post, comments] = await Promise.all([
-      Post.findOne({
-        where: { id: parseInt(req.params.postid), published: true },
-      }),
-    ]);
+    const post = await Post.findOne({
+      where: { id: parseInt(req.params.postid), published: true },
+    });
 
     if (!post) {
       const err = new Error("No post with that id was found.");
