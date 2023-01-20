@@ -56,12 +56,10 @@ router.get("/:postid", async (req, res, next) => {
       return next(err);
     }
     res.json({
-      post: {
-        id: post.id,
-        title: post.title,
-        text: post.text,
-        createdAt: post.createdAt,
-      },
+      id: post.id,
+      title: post.title,
+      text: post.text,
+      createdAt: post.createdAt,
     });
   } catch (err) {
     return next(err);
