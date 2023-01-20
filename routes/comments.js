@@ -7,7 +7,7 @@ const Comment = require("../models/comment");
 
 const async = require("async");
 
-router.get("/posts/:postid/comments", async (req, res, next) => {
+router.get("/post/:postid", async (req, res, next) => {
   try {
     const comments = await Comment.findAll({
       where: {
@@ -29,7 +29,7 @@ router.get("/posts/:postid/comments", async (req, res, next) => {
   }
 });
 
-router.post("/posts/:postid/comments", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     if (!req.body.text) {
       const err = new Error("Comments can't be empty.");
@@ -57,7 +57,7 @@ router.post("/posts/:postid/comments", async (req, res, next) => {
   }
 });
 
-router.delete("/comments/:commentid", async (req, res, next) => {
+router.delete("/:commentid", async (req, res, next) => {
   try {
     await Comment.destroy({
       where: {

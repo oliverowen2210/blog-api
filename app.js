@@ -117,7 +117,7 @@ app.post("/login", (req, res, next) => {
 
 app.use("/private/posts", passport.authenticate("jwt"), privateRouter);
 app.use("/posts", postRouter);
-app.use("/", commentRouter);
+app.use("/comments", commentRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
