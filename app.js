@@ -25,7 +25,12 @@ const commentRouter = require("./routes/comments");
 const postRouter = require("./routes/posts");
 const privateRouter = require("./routes/private_posts");
 
-app.use(cors({ credentials: true, origin: true }));
+app.use(
+  cors({
+    credentials: true,
+    origin: [/localhost:3000$/, /https:\/\/\.oliverowen2210\.github\.io$/],
+  })
+);
 
 app.options("*", cors());
 
