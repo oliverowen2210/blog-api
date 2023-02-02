@@ -88,9 +88,7 @@ router.get("/:postid", async (req, res, next) => {
       err.status = 404;
       return next(err);
     }
-    res.json({
-      post,
-    });
+    res.json(post);
   } catch (err) {
     return next(err);
   }
