@@ -28,7 +28,7 @@ const privateRouter = require("./routes/private_posts");
 app.use(
   cors({
     credentials: true,
-    origin: [/localhost:3000$/, /https:\/\/\.oliverowen2210\.github\.io$/],
+    origin: [/localhost:3000$/, /oliverowen2210\.github\.io$/],
   })
 );
 
