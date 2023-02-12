@@ -1,11 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { body, validationResult } = require("express-validator");
 
 const Post = require("../models/post");
 const Comment = require("../models/comment");
-
-const async = require("async");
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
@@ -64,10 +61,6 @@ router.get("/:postid", async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
-});
-
-router.put("/:postid", async (req, res, next) => {
-  res.send("todo");
 });
 
 module.exports = router;
