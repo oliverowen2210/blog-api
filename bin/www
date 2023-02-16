@@ -20,11 +20,24 @@ app.set("port", port);
  */
 
 const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: [
+      /http\:\/\/localhost\:3000$/,
+      /https\:\/\/oliverowen2210\.github\.io\/blog-public$/,
+    ],
+    methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS"],
+  },
+});
 
 io.on("connection", (socket) => {
   console.log("a user connected");
+  socket.on("user_posted_comment", (comment) => {
+    io.emit("new_comment", comment);
+  });
+  socket.on("user_posted_blog", (blog) => {
+    io.emit("new_post", blog);
+  });
 });
 
 /**
