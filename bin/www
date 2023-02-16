@@ -22,10 +22,7 @@ app.set("port", port);
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: [
-      /http\:\/\/localhost\:3000/,
-      /https\:\/\/oliverowen2210\.github\.io\/blog-public/,
-    ],
+    origin: [/localhost:3000$/, /oliverowen2210\.github\.io$/],
     methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS"],
   },
 });
