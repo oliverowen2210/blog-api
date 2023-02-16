@@ -101,7 +101,6 @@ passport.deserializeUser(function (id, done) {
 app.use(async (req, res, next) => {
   try {
     await db.authenticate();
-    console.log("Successfully connected to database");
     db.sync();
     next();
   } catch (err) {
