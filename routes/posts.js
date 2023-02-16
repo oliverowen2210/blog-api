@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
+const postCommentsRouter = require("./post_comments");
+
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+
+router.use("/:postid/comments/", postCommentsRouter);
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
