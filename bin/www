@@ -35,6 +35,9 @@ io.on("connection", (socket) => {
   socket.on("user_posted_blog", (blog) => {
     io.emit("new_post", blog);
   });
+  socket.on("user_deleted_blog", (blogId) => {
+    io.emit("delete_post", blogId);
+  });
 });
 
 /**
